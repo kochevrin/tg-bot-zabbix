@@ -14,7 +14,8 @@ This project includes a Telegram bot that uses Redis for storage and is managed 
 
 💡 Note that the `.config.py` file should be in the same directory as `tg-bot-docker-compose.yml`.
 
-## Deploy Telegram Bot using Docker Compose: `docker compose -f tg-bot-docker-compose.yml up -d`
+## Deploy Telegram Bot using Docker Compose:
+`docker compose -f tg-bot-docker-compose.yml up -d`
 
 ## Bot Code
 
