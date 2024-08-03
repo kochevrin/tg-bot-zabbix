@@ -37,7 +37,5 @@ if [[ $status -eq 0 ]]; then
   echo "Message sent successfully to bot API"
 else
   echo "Bot API failed, sending message via Telegram API"
-  #reply_markup='{"inline_keyboard":[[{"text":"Оновити","callback_data":"add_to_list"}]]}'
-  #/usr/bin/curl -s --header 'Content-Type: application/json' --request 'POST' --data "{\"chat_id\":\"${chat}\",\"text\":\"${text_zab}\n\n---ZabSend---\",\"reply_markup\":"${reply_markup}"}" "https://api.telegram.org/bot${token}/sendMessage"
   /usr/bin/curl -s --header 'Content-Type: application/json' --request 'POST' --data "{\"chat_id\":\"${chat}\",\"text\":\"${text_zab}\n\n---TG_api_Send---\"}" "https://api.telegram.org/bot${token}/sendMessage"
 fi
