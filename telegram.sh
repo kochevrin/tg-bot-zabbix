@@ -10,7 +10,7 @@ chat="$1"
 subj="$2"
 message="$3"
 
-# URL of your Ubuntu server with the running webhook application
+# URL of your docker server with the running tg-bot
 web_url="http://your-bot-ip-address:8989/zabbmess"
 
 
