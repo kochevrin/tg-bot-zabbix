@@ -1,0 +1,59 @@
+# Telegram Bot for zabbix server with Docker
+# Configuration
+# **Change the variable `TOKEN` in the `.config.py`** file. 
+
+# **Note that the `.config.py` file should be in the same directory as `tg-bot-docker-compose.yml`.**
+
+## Running the Bot
+
+# Change the variable "TOKEN" in the `.config.py`.
+
+# Note that the `.config.py` file should be in the same directory as `tg-bot-docker-compose.yml`.
+
+# Deploy TG-Bot using Docker Compose:
+# `docker compose -f tg-bot-docker-compose.yml up -d`
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis-server-container
+    networks:
+      - tgNetwork
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      retries: 3
+      start_period: 10s
+      timeout: 10s
+
+  telegram_bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: telegram-bot-container
+    depends_on:
+      - redis
+    ports:
+      - "8989:8989"
+    networks:
+      - tgNetwork
+    volumes:
+      - bot-data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8989/health"]
+      interval: 30s
+      retries: 3
+      start_period: 10s
+      timeout: 10s
+
+networks:
+  tgNetwork:
+    driver: bridge
+
+volumes:
+  redis-data:
+  bot-data:
